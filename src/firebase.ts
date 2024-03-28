@@ -1,15 +1,15 @@
 import { initializeApp } from "firebase/app";
 import { MessagePayload, getMessaging, getToken, onMessage } from "firebase/messaging";
 
-
 const firebaseConfig = {
-  apiKey: "AIzaSyBzhop2MeuFaL2uJwp6yQOfVkr7zTj-CGE",
-  authDomain: "nokewtest.firebaseapp.com",
-  projectId: "nokewtest",
-  storageBucket: "nokewtest.appspot.com",
-  messagingSenderId: "394111859121",
-  appId: "1:394111859121:web:df7b5c9f53acd2581c6590",
+	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+	storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+	appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
+
 const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 
@@ -17,7 +17,7 @@ export const requestForToken = async () => {
   const swRegistration = await navigator.serviceWorker.register("/FCM_test/firebase-messaging-sw.js");
  
   return getToken(messaging, {
-    vapidKey: "BGE6opd3v17ZtLj7p9UV4BdA60zqljBwilCBCAaro6f2_ZEnZFiSc4Q3v88CnQyO7X_SLIe5Xe60qlrbeuM8YhM",
+    vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
     serviceWorkerRegistration: swRegistration,
   })
     .then((currentToken) => {
@@ -39,7 +39,6 @@ export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload: MessagePayload) => {
       console.log("Message", payload);
-      new Notification(payload.notification?.title + " " + payload.notification?.body);
       resolve(payload);
     });
   });
