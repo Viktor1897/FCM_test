@@ -2,14 +2,17 @@
 importScripts('https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js');
 importScripts("https://www.gstatic.com/firebasejs/9.6.1/firebase-messaging-compat.js");
 
+//temporarily don't use .env variables here, as it works only for modules, and it's not a module
+
 const firebaseConfig = {
-	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-	storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-	messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-	appId: import.meta.env.VITE_FIREBASE_APP_ID,
-};
+	apiKey: "AIzaSyBzhop2MeuFaL2uJwp6yQOfVkr7zTj-CGE",
+	authDomain: "nokewtest.firebaseapp.com",
+	projectId: "nokewtest",
+	storageBucket: "nokewtest.appspot.com",
+	messagingSenderId: "394111859121",
+	appId: "1:394111859121:web:df7b5c9f53acd2581c6590",
+  };
+
 firebase.initializeApp(firebaseConfig);
 const isSupported = firebase.messaging.isSupported();
 if (isSupported) {
