@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { MessagePayload, getMessaging, getToken, onMessage } from "firebase/messaging";
 
 
 const firebaseConfig = {
@@ -37,8 +37,9 @@ export const requestForToken = async () => {
 
 export const onMessageListener = () =>
   new Promise((resolve) => {
-    onMessage(messaging, (payload) => {
+    onMessage(messaging, (payload: MessagePayload) => {
       console.log("Message", payload);
+      new Notification(payload.notification?.title + " " + payload.notification?.body);
       resolve(payload);
     });
   });
