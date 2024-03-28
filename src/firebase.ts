@@ -14,7 +14,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const messaging = getMessaging(firebaseApp);
 
 export const requestForToken = async () => {
-  const swRegistration = await navigator.serviceWorker.register("spa/static/js/firebase-messaging-sw.js");
+  const swRegistration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
  
   return getToken(messaging, {
     vapidKey: "BGE6opd3v17ZtLj7p9UV4BdA60zqljBwilCBCAaro6f2_ZEnZFiSc4Q3v88CnQyO7X_SLIe5Xe60qlrbeuM8YhM",
@@ -23,7 +23,8 @@ export const requestForToken = async () => {
     .then((currentToken) => {
       if (currentToken) {
         console.log("current token for client: ", currentToken);
-        // Perform any other neccessary action with the token
+        const container = document.querySelector('.test-name');
+        if (container) container.textContent = currentToken;
       } else {
         // Show permission request UI
         console.log("No registration token available. Request permission to generate one.");
