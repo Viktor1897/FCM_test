@@ -2,10 +2,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { onMessageListener, requestForToken } from './firebase'
-import checkNotificationPermissions from './utils/checkNotificationPermissions'
 
 function App() {
-  
+  requestForToken();
   onMessageListener();
   return (
     <>
@@ -19,7 +18,6 @@ function App() {
       </div>
       <p className='test-name' style={{wordBreak: "break-all"}}>Vite + React</p>
       <p className="read-the-docs">
-        {checkNotificationPermissions(requestForToken)}
       </p>
     </>
   )
