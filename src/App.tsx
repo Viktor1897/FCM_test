@@ -4,12 +4,24 @@ import './App.css'
 import { onMessageListener, requestToken } from './firebase'
 import { useEffect, useState } from 'react'
 import { NotificationPermissions } from './components/NotificationPermissions'
+import toast, { Toaster } from 'react-hot-toast'
+import { NotificationPayload } from 'firebase/messaging'
 
 function App() {
 
-  const [registrationToken, setRegistrationToken] = useState<string>();
+  const [registrationToken, setRegistrationToken] = useState<string>("Token is not requested yet.");
+  const [notification, setNotification] = useState<NotificationPayload | undefined>();
 
-  onMessageListener();
+  onMessageListener().then(({ notification }) => setNotification(notification));
+
+  useEffect(() => {
+    if (notification?.title) {
+      toast(<div>
+        <p><b>{notification?.title}</b></p>
+        <p>{notification?.body}</p>
+      </div>)
+    }
+  }, [notification])
 
   useEffect(() => {
     if (!("Notification" in window)) return
@@ -18,7 +30,7 @@ function App() {
       requestToken().then(res => setRegistrationToken(res));
     } 
   }, []);
-
+  
   return (
     <>
       <div>
@@ -32,6 +44,7 @@ function App() {
       <h1>FCM Registration Token:</h1>
         <p style={{wordBreak: "break-all", border: "2px solid #000000", padding: "1rem"}}>{registrationToken}</p>
       <NotificationPermissions />
+      <Toaster position='bottom-right'/>
     </>
   )
 }

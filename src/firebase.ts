@@ -32,9 +32,9 @@ export const requestToken = async () => {
   })
 };
 
-export const onMessageListener = () =>
+export const onMessageListener = (): Promise<MessagePayload> =>
   new Promise((resolve) => {
-    onMessage(messaging, (payload: MessagePayload) => {
+    onMessage(messaging, (payload) => {
       console.log("Message", payload);
       resolve(payload);
     });
