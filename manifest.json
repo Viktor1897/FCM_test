@@ -1,1 +1,6 @@
-{ "display": "standalone" }
+{
+    "display": "standalone",
+    "name": "FCM TEST",
+    "short_name": "FCM",
+    "start_url": "."
+}
