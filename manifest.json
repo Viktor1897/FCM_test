@@ -2,5 +2,5 @@
     "display": "standalone",
     "name": "FCM TEST",
     "short_name": "FCM",
-    "start_url": "./"
+    "start_url": "./FCM_test/"
 }
